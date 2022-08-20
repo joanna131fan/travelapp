@@ -1,15 +1,19 @@
 import React from 'react'
 import {ReactComponent as FavoriteIcon} from '../../svgs/favorite.svg'
 import {ReactComponent as AddToIcon} from '../../svgs/addTo.svg'
-const TripPage = (props) => {
+// import dataTrips from '../../components/TripData'
+import { useLocation } from 'react-router-dom'
+const TripPage = props => {
+    const location = useLocation();
+    const state = location.state;
     return (
         <div className = "tripPage"> 
             <div className = "tripPageInfo">
                 <div className = "tripPageImage">
-                    <img src="https://images.unsplash.com/photo-1598135753163-6167c1a1ad65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80" alt="pic"/>
+                    <img src={ state.trip.img } alt="pic"/>
                 </div>
-                <h1>Title</h1>
-                <p>Authors</p>
+                <h1>{ state.trip.name }</h1>
+                <p>{ state.trip.authors }</p>
                 <button>Start Trip</button>
                 <div className="icons">
                     <span className="iconsFavorite">
@@ -19,7 +23,7 @@ const TripPage = (props) => {
                         <AddToIcon/>
                     </span>
                 </div>
-                <p>Trip Description</p>
+                <p>{ state.trip.dates }</p>
             </div>
             <div className="tripItinerary">
                 <ul>

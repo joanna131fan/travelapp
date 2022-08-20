@@ -10,7 +10,7 @@ const App = () =>{
         <Nav/>
         <Main />
       </div>
-      <div className="musicControls"> music controls </div>
+      <div className="travelControls"> travel controls </div>
     </div>
   )
 }
