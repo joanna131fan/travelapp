@@ -1,15 +1,15 @@
 const { validationResult } = require('express-validator');
 
-const handleTrip = (req, res) => {
-    const errors = validationResult(req);
+const handleTrip = (request, response) => {
+    const errors = validationResult(request);
     if(!errors.isEmpty()) {
         // Validation errors
-        return res.status(400).json({ errors: errors.array() });
+        return response.status(400).json({ errors: errors.array() });
     }
 
-    const { tripName, startDate, endDate, people } = req.body;
+    const { tripName, startDate, endDate, people } = request.body;
 
-    res.status(200).json({ message: 'The server received the data' });
+    response.status(200).json({ message: 'The server received the data' });
 };
 
 module.exports = { handleTrip };

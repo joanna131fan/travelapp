@@ -1,115 +1,106 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-
+import { useForm, Controller} from "react-hook-form";
+import ReactDatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+// import moment from 'moment';
 
 const ItineraryForm = () => {
-    const initialFormData = {
-        tripName: '',
-        startDate:'',
-        endDate:'',
-        people:'',
-    };
 
-    const [formData, setFormData] = useState(initialFormData);
-    const [formSuccess, setFormSuccess] = useState('');
-    const [formErrors, setFormErrors] = useState([]);
+  const [minEndDate, setMinDate] = useState(new Date());
 
-    const handleSubmit = async(e) => {
-        e.preventDefault();
-        try {
-            // send POST request
-            await axios.post('http://localhost:8082/trip', formData);
+  let navigate = useNavigate();
 
-            // HTTP req successful
-            setFormSuccess('Data received correctly');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control
+  } = useForm({
+    mode: "all",
+    defaultValues: {
+      startDate: new Date(),
+      endDate: new Date(),
+      tripName: "",
+      invite: "",
+    }
+  });
 
-            // Reset form data
-            setFormData(initialFormData);
-        } catch(err) {
-            handleErrors(err);
-        }
-    };
+  const onSubmit = (data, e) => {
+    e.preventDefault();
+    e.target.reset();
+    console.log(data);
+    alert(JSON.stringify(data));
+    navigate('/');
+    return;
+  };
 
-    const handleErrors = (err) => {
-        if(err.response.data && err.response.data.errors) {
-            // Handle validation errors
-            const { errors } = err.response.data;
+  console.log(errors);
 
-            let errorMsg = [];
-
-            for(let error of errors) {
-                const { msg } = error;
-
-                errorMsg.push(msg);
-            }
-            
-            setFormErrors(errorMsg);
-        } else {
-            // Handle generic error
-            setFormErrors(['Oops, there was an error!']);
-        }
-    };
-
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.id]: e.target.value,
-        });
-        setFormErrors([]);
-        setFormSuccess('');
-    };
-
-    return (
-        <div className='ItineraryForm'>
-            <form onSubmit={handleSubmit} className = 'form'>
-                
-                <fieldset>
-                    <div>
-                        <label>Start a new trip!</label>
-                            <input 
-                                type='text'
-                                id='tripName'
-                                class="input"
-                                placeholder='trip to...'
-                                value={formData.tripName}
-                                onInput={handleChange}/>
-                    </div>
-                    {/* <div>
-                        <label>Start Date</label>
-                            <input
-                                type='text'
-                                id='startDate'
-                                class="input"
-                                placeholder='DD/MM/YYYY'
-                                value={formData.startDate}
-                                onInput={handleChange}/>
-                    </div>
-                    <div>
-                        <label>End Date </label>
-                            <input
-                                type='text'
-                                id='endDate'
-                                class="input"
-                                placeholder='DD/MM/YYYY'
-                                value={formData.endDate}
-                                onInput={handleChange}/>
-                    </div> */}
-                    {/* <div>
-                        <label>People </label>
-                            <textarea
-                                type='text'
-                                id='people'
-                                class="input"
-                                placeholder='going with...'
-                                value={formData.people}
-                                onInput={handleChange}/>
-                    </div> */}
-                    <button type="submit" onClick={handleSubmit}>
-                        Create Trip
-                    </button>
-                </fieldset>
-            </form>
-        </div>
-    )
+  return (
+    <div className="ItineraryForm">
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off" className="form">
+        <fieldset>
+        <h2>Start a New Adventure!</h2>
+        <label>Trip Name</label>
+        <input
+          {...register("tripName", {
+            required: "Trip Name is Required...",
+            minLength: {
+              value: 3,
+              message: "Trip Name must be atleast 3 characters long...",
+            },
+            maxLength: {
+              value: 30,
+              message: "Trip Name must be atmost 30 characters long...",
+            },
+          })}
+          placeholder="Trip to..."
+        />
+        <p>{errors.tripName?.message}</p>
+        <label>Start Date</label>
+          <Controller
+            control={control}
+            name="startDate"
+            rules = {{ required: true }}
+            render={({ field }) => (
+              <ReactDatePicker
+                className="input"
+                placeholderText="Select Start Date"
+                onChange={(e) => {field.onChange(e);
+                                  setMinDate(e); }}
+                selected={field.value}
+              />
+              )}
+          />
+          <p>{errors.startDate && (<span> Start Date is Required...</span>)}</p>
+          <label>End Date</label>
+          <Controller
+            control={control}
+            name="endDate"
+            rules = {{ 
+              required: true
+            }}
+            render={({ field }) => (
+              <ReactDatePicker
+                className="input"
+                placeholderText="Select End Date"
+                onChange={(e) => field.onChange(e)}
+                selected={field.value}
+                minDate={minEndDate}
+              />
+              )}
+          />
+          <p>{errors.endDate && errors.endDate.type === "required" && (<span> End Date is Required...</span>)}</p>
+          <div>
+            <label>Invite People</label>
+            <textarea {...register("invite")} placeholder="Trip to..."/>
+          </div>
+        <button type="Submit" className="button">Create</button>
+        </fieldset>
+      </form>
+    </div>
+  );
 }
-export default ItineraryForm
+
+export default ItineraryForm;

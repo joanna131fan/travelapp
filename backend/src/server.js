@@ -16,8 +16,8 @@ app.use(
 
 app.use('/', require('./routes/trip.route'));
 
-app.get('/trip', function(req, res) {
-    res.send('Hello');//add later
+app.get('/trip', function(request, response) {
+    response.send('Hello');//add later
 });
 
 const port = 8082;

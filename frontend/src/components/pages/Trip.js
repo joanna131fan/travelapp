@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom'
 const TripPage = props => {
     const location = useLocation();
     const state = location.state;
+    // ADD MODALS like spotify
     return (
         <div className = "tripPage"> 
             <div className = "tripPageInfo">

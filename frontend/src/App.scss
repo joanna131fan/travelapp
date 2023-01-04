@@ -15,7 +15,7 @@ $widgetGreen: #7EA7A6;
   height: calc(100vh - 90px);
   background: $greyDark; // change later
   display: flex;
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Gill Sans", sans-serif;
 }
 
 .link {
@@ -264,8 +264,8 @@ $widgetGreen: #7EA7A6;
     margin:none;
     margin-top:auto;
     padding:none;
-    padding-top:30px;
-    button {
+    padding-top:3rem;
+    .button {
       background-color: $greyDark;
       height:2rem;
       width:6rem;
@@ -296,18 +296,19 @@ $widgetGreen: #7EA7A6;
       font-size:1.5rem;
       padding-bottom: 1vh;
     }
-    input[type=text]{
+    input{
       margin:5px;
       margin-bottom:15px;
       background-color: $greyLight;
       border:none;
       color:$greyWhite;
       border-radius: 5px;
-      width:25vw;
-      height:2rem;
-      font-size:1rem;
+      width:30vw;
+      height:3rem;
+      font-size:1.25rem;
       padding-left:1vw;
       padding-right:1vw;
+      font-family: "Gill Sans", sans-serif;
       &:focus {
         background-color: $greyWhite;
         color:$greyDark;
@@ -320,8 +321,11 @@ $widgetGreen: #7EA7A6;
       border:none;
       color:$greyWhite;
       border-radius: 5px;
-      width:30vw;
-      font-family: "Noto Sans", sans-serif;
+      width:35vw;
+      font-family: "Gill Sans", sans-serif;
+      font-size:1.25rem;
+      padding-left:1vw;
+      padding-right:1vw;
       &:focus {
         background-color: $greyWhite;
         color:$greyDark;
