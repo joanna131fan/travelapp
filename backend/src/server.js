@@ -5,8 +5,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-// MONGODB: joannafan, wchxVar8Ww4VtGWf
-const mongoDB = "mongodb+srv://joannafan03:wchxVar8Ww4VtGWf@cluster0.ubk1iar.mongodb.net/?retryWrites=true&w=majority"
+const mongoDB = process.env.DB_URL;
 
 const app = express();
 
@@ -27,7 +26,7 @@ app.get('/trip', function(req, res) {
     res.send('Hello');//add later
 });
 
-const port = 8082;
+const port = process.env.PORT;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
 
