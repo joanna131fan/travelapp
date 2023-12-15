@@ -8,3 +8,4 @@ const { validate } = require('../middlewares/validator.middleware');
 router.post('/trip', validate('handleTrip'), handleTrip);
 
 module.exports = router;
+// http://pont.ist/route-examples-mongoose-express/

@@ -94,7 +94,7 @@ const ItineraryForm = () => {
           <p>{errors.endDate && errors.endDate.type === "required" && (<span> End Date is Required...</span>)}</p>
           <div>
             <label>Invite People</label>
-            <textarea {...register("invite")} placeholder="Trip to..."/>
+            <textarea {...register("invite")} placeholder="Invite..."/>
           </div>
         <button type="Submit" className="button">Create</button>
         </fieldset>

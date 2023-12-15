@@ -46,6 +46,12 @@ const Nav = () => {
             <Link to="/new-itinerary" className='link'>
               <li className="tablinks" id="itinerary"><ItineraryIcon/> New Itinerary</li>
             </Link>
+            <Link to="/signup" className='link'>
+              <li className="tablinks" id="itinerary">Sign Up</li>
+            </Link>
+            <Link to="/login" className='link'>
+              <li className="tablinks" id="itinerary">Log In</li>
+            </Link>
           </ul>
           <div className="cookies">
               <span>Cookies</span>
